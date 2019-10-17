@@ -9,11 +9,32 @@
 </head>
 <body>
   <div id="login">
-
+    <form id="login-form">
+      <div>
+        <label for="login-email">Email</label>
+        <input type="text" id="login-email">
+      </div>
+      <div>
+        <label for="login-password">Password</label>
+        <input type="text" id="login-password">
+      </div>
+      <button type="submit" id="login-btn">Ingresar</button>
+      <a href="#" class="register-link">¿Aún no tienes cuenta?</a>
+    </form>
   </div>
 
   <div id="register">
-
+    <form id="register-form">
+      <div>
+        <label for="register-email">Email</label>
+        <input type="text" id="register-email">
+      </div>
+      <div>
+        <label for="register-password">Password</label>
+        <input type="text" id="register-password">
+      </div>
+      <button type="submit">Registrarse</button>
+    </form>
   </div>
 
   <div id="projects">
@@ -30,7 +51,7 @@
       </tbody>
     </table>
 
-    <form>
+    <form id="new-project">
       <div>
         <label for="name">Nombre: </label>
         <input type="text" id="name">
@@ -44,6 +65,7 @@
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
