@@ -57,7 +57,7 @@ $("form#new-project").on("submit", e => {
   });
 });
 
-$("button#login-form").on("submit", e => {
+$("#login-form").on("submit", e => {
   e.preventDefault();
 
   alert("Login");
