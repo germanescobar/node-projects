@@ -3,23 +3,30 @@ const appendProject = project => {
     <tr>
       <td>${project.name}</td>
       <td>${project.description}</td>
-      <td>${project.creationDate}</td>
+      <td>${moment(project.creationDate).format("DD/MM/YYYY kk:mm")}</td>
     </tr>
   `);
 }
 
-// cargar los proyectos
-$.ajax({
-  url: "/projects"
-}).done(projects => {
-  projects.forEach(project => appendProject(project));
-}).fail(err => {
-  // si es un err.status 401 mostar el formulario de login
-  console.log("Error", err)
-});
+const loadProjects = () => {
+  $.ajax({
+    url: "/projects"
+  }).done(projects => {
+    $("#projects").show();
+    projects.forEach(project => appendProject(project));
+  }).fail(err => {
+    if (err.status === 401) {
+      $("#login").show();
+    } else {
+      console.log("Error", err)
+    }
+  });
+};
+
+loadProjects();
 
 //
-$("form").on("submit", e => {
+$("form#new-project").on("submit", e => {
   e.preventDefault();
 
   // limpiar los errores
@@ -49,3 +56,36 @@ $("form").on("submit", e => {
     }
   });
 });
+
+$("#login-form").on("submit", e => {
+  e.preventDefault();
+
+  alert("Login");
+});
+
+$("form#register-form").on("submit", e => {
+  e.preventDefault();
+
+  const email = $("#register-email").val();
+  const password = $("#register-password").val();
+
+  $.ajax({
+    method: "POST",
+    url: "/register",
+    contentType: "application/json",
+    data: JSON.stringify({ email, password })
+  }).done(response => {
+    $("#register").hide();
+    $("#projects").show();
+    loadProjects();
+  }).fail(err => {
+    console.log(err);
+  });
+});
+
+$(".register-link").on("click", e => {
+  e.preventDefault();
+
+  $("#login").hide();
+  $("#register").show();
+})
